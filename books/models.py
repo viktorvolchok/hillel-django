@@ -17,10 +17,11 @@ class Country(models.Model):
 
 
 class Book(models.Model):
-    name = models.CharField(max_length=40)
+    name = models.CharField(max_length=40, unique=True)
     pages_count = models.IntegerField(null=True)
     authors = models.ManyToManyField(Author)
     country = models.ForeignKey(Country, null=True, on_delete=models.CASCADE)
+    price = models.FloatField()
 
     def __str__(self):
         return self.name
