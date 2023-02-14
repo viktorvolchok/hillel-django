@@ -1,4 +1,5 @@
 from django.db import models
+from rest_framework.authtoken.admin import User
 
 
 class Author(models.Model):
@@ -22,6 +23,7 @@ class Book(models.Model):
     authors = models.ManyToManyField(Author)
     country = models.ForeignKey(Country, null=True, on_delete=models.CASCADE)
     price = models.FloatField()
+    seller = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.name

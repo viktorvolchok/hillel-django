@@ -3,11 +3,14 @@ from rest_framework.viewsets import ModelViewSet
 
 from books.models import Book, Author
 from books.serializers import BookSerializer, AuthorSerializer
+from hillel_django.permissions import IsSellerOrAdminOrReadOnly
 
 
 class BookViewSet(ModelViewSet):
-    queryset = Book.objects.all().select_related('country').prefetch_related('authors')
+    queryset = Book.objects.select_related('country').prefetch_related('authors')
+
     serializer_class = BookSerializer
+    permission_classes = [IsSellerOrAdminOrReadOnly]
 
 
 class AuthorViewSet(ModelViewSet):
