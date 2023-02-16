@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,12 +25,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-&uhx&z9_51jo&uo1r-t88-$-ko!buk7o%)457v8g_%(94j8&4p'
+SECRET_KEY = open(os.path.join(BASE_DIR, "secret_key.txt")).read()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG") == "True"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost"]
 
 
 # Application definition
@@ -71,16 +76,12 @@ TEMPLATES = [
 ]
 
 REST_FRAMEWORK = {
-    # Use Django's standard `django.contrib.auth` permissions.py,
-    # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
         'hillel_django.permissions.IsAdminOrReadOnly'
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-        # 'rest_framework.authentication.TokenAuthentication',
-        # 'hillel_django.authentication.GloryToUkraineAuthentication',
     ]
 }
 
@@ -93,10 +94,10 @@ WSGI_APPLICATION = 'hillel_django.wsgi.application'
 DATABASES = {
     'default': {
        'ENGINE': 'django.db.backends.postgresql',
-       'NAME': 'django_books',
-       'USER': 'vitaliipavliuk',
-       'PASSWORD': '',
-       'HOST': 'localhost',
+       'NAME': os.environ["DB_NAME"],
+       'USER': os.environ["DB_USERNAME"],
+       'PASSWORD': os.environ["DB_PASSWORD"],
+       'HOST': os.environ["DB_HOST"],
        'PORT': '5432',
    }
 }
