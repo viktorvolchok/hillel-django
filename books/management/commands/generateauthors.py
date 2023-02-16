@@ -1,5 +1,4 @@
 from django.core.management import BaseCommand
-from random import randint
 
 from faker import Faker
 

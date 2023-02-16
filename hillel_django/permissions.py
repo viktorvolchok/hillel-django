@@ -1,7 +1,5 @@
 from rest_framework.permissions import BasePermission
 
-from books.models import Book
-
 SAFE_HTTP_METHODS = ["GET", "HEAD"]
 
 

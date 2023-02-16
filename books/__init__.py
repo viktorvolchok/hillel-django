@@ -1,0 +1,6 @@
+from viewsets import BookViewSet, AuthorViewSet
+
+__all__ = [
+    'BookViewSet',
+    'AuthorViewSet',
+]

@@ -20,7 +20,7 @@ from rest_framework import routers
 from rest_framework.authtoken.views import obtain_auth_token
 
 import books.views
-from books.viewsets import BookViewSet, AuthorViewSet
+from books import BookViewSet, AuthorViewSet
 from hillel_django.views import session_auth
 
 router = routers.DefaultRouter()
