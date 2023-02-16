@@ -22,6 +22,11 @@ class BookSerializer(serializers.ModelSerializer):
     country = CountrySerializer()
     authors = AuthorSerializer(many=True)
 
+    serializer_method_field = serializers.SerializerMethodField("calculate_field")
+
+    def calculate_field(self, book):
+        return f"This is some string of book {book.name}"
+
     class Meta:
         model = Book
-        fields = ("id", "name", "country", "authors", "seller")
+        fields = ("id", "name", "country", "authors", "seller", "authors_string", "serializer_method_field")
