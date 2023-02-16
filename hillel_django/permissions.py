@@ -2,6 +2,8 @@ from rest_framework.permissions import BasePermission
 
 SAFE_HTTP_METHODS = ["GET", "HEAD"]
 
+import os
+
 
 class IsAdminOrReadOnly(BasePermission):
     def has_permission(self, request, view):
