@@ -3,6 +3,7 @@ astroid==2.14.2
 certifi==2022.12.7
 charset-normalizer==3.0.1
 dill==0.3.6
+dj-database-url==1.2.0
 Django==4.1.6
 djangorestframework==3.14.0
 Faker==16.7.0

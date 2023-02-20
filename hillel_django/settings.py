@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 
+import dj_database_url
 from dotenv import load_dotenv
 import os
 
@@ -93,18 +94,26 @@ WSGI_APPLICATION = 'hillel_django.wsgi.application'
 
 USE_POSTGRES = os.environ.get("USE_POSTGRES") == "True"
 
-DATABASES = {
-    'default': {
+DATABASE_URL = os.environ.get("DATABASE_URL")
+if DATABASE_URL:
+    DEFAULT_DATABASE = dj_database_url.parse(DATABASE_URL)
+elif USE_POSTGRES:
+    DEFAULT_DATABASE = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.environ["DB_NAME"],
         'USER': os.environ["DB_USERNAME"],
         'PASSWORD': os.environ["DB_PASSWORD"],
         'HOST': os.environ["DB_HOST"],
         'PORT': '5432',
-    } if USE_POSTGRES else {
+    }
+else:
+    DEFAULT_DATABASE = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'db.sqlite',
     }
+
+DATABASES = {
+    'default': DEFAULT_DATABASE
 }
 
 # Password validation
