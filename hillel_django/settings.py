@@ -83,6 +83,7 @@ REST_FRAMEWORK = {
         'hillel_django.permissions.IsAdminOrReadOnly'
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
+        'hillel_django.authentication.SecretHeaderAuthentication',
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ]
