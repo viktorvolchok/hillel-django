@@ -8,7 +8,7 @@ from books.models import Book, Author
 class BookTestCase(TestCase):
     def setUp(self) -> None:
         fake = Faker()
-        self.book = Book.objects.create(name="Кобзар", price=100, pages_count=280)
+        self.book = Book.objects.create(name="Кобзар", price=100)
 
         self.author1 = Author.objects.create(first_name=fake.first_name(), last_name=fake.last_name())
         self.author2 = Author.objects.create(first_name=fake.first_name(), last_name=fake.last_name())
@@ -35,10 +35,7 @@ class BookTestCase(TestCase):
                          f"{self.author2.first_name} {self.author2.last_name}")
 
     def test_get_information(self):
-        book = Book.objects.get(name="Кобзар")
-        self.assertEqual(book.get_information(), f"{self.book.name}")
-
-    def test_get_information_empty_fields(self):
-        book = Book.objects.create(name="Zakhar Berkut", author='Ivan Franko', pages_count=250, price=700)
-        self.assertEqual(book.get_information(), f"{self.book.name} {self.book.authors} {self.book.pages_count}"
-                                                 f" {self.book.price}")
+        book_test = self.book.get_information()
+        self.assertEqual(book_test,
+                         f"Name: Zakhar Berkut\nAuthors: Ivan Franko\nCount of pages: 250\n"
+                         f"Country: Ukraine\nPrice: 700")

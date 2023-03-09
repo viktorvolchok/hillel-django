@@ -24,21 +24,8 @@ class Book(models.Model):
         return ", ".join(authors_names)
 
     def __str__(self):
-        return f'{self.name} {self.authors} {self.pages_count} {self.country} {self.seller} {self.price}'
+        return f"{self.name} {self.authors} {self.pages_count} {self.country} {self.seller} {self.price}"
 
     def get_information(self):
-        author_info = {
-            'first_name': Author.first_name,
-            'last_name': Author.last_name,
-        }
-        book_info = {
-            'name': self.name,
-            'authors': self.authors,
-            'pages_count': self.pages_count,
-            'country': self.country,
-            'seller': self.seller,
-            'info_about_authors': author_info,
-            'price': self.price,
-        }
-
-        return book_info
+        return f"Name: {self.name}\nAuthors: {self.authors}\nCount of pages: {self.pages_count}\n" \
+               f"Country: {self.country}\nPrice: {self.price}"
