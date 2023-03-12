@@ -27,5 +27,4 @@ class Book(models.Model):
         return f"{self.name} {self.authors} {self.pages_count} {self.country} {self.seller} {self.price}"
 
     def get_information(self):
-        return f"Name: {self.name}\nAuthors: {self.authors}\nCount of pages: {self.pages_count}\n" \
-               f"Country: {self.country}\nPrice: {self.price}"
+        return f"Name: {self.name}\nCount of pages: {self.pages_count}\nCountry: {self.country}\nPrice: {self.price}"
