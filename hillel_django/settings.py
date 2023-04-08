@@ -33,7 +33,7 @@ SECRET_KEY = open(os.path.join(BASE_DIR, "secret_key.txt")).read() \
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG") == "True"
 
-ALLOWED_HOSTS = ["localhost", "hillel-django.herokuapp.com"]
+ALLOWED_HOSTS = ["localhost", "hillel-django.herokuapp.com", "127.0.0.1"]
 
 # Application definition
 
@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+    'django_celery_beat',
     'books',
     'customers',
 ]
@@ -107,7 +108,7 @@ elif USE_POSTGRES:
         'USER': os.environ["DB_USERNAME"],
         'PASSWORD': os.environ["DB_PASSWORD"],
         'HOST': os.environ["DB_HOST"],
-        'PORT': '5432',
+        'PORT': os.environ["PORT"],
     }
 else:
     DEFAULT_DATABASE = {
@@ -136,7 +137,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
@@ -178,6 +178,6 @@ CELERY_BEAT_SCHEDULE = {
     },
     'statistic_sending': {
             'task': 'books.tasks.statistic_sending',
-            'schedule': crontab("16", "14", "*", "*", "*")
+            'schedule': crontab("00", "12", "*", "*", "*")
     }
 }

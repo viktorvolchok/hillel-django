@@ -19,7 +19,8 @@ from django.urls import path, include
 from rest_framework import routers
 from rest_framework.authtoken.views import obtain_auth_token
 
-import books.views
+# import books.views
+
 from books.viewsets import BookViewSet, AuthorViewSet, OrderViewSet
 from hillel_django.views import session_auth
 
@@ -31,7 +32,7 @@ router.register("orders", OrderViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('books/', books.views.books_view),
+    # path('books/', books.views.books_view),
     path('api/', include(router.urls)),
     path('api/token-auth', obtain_auth_token),
     path('api/session-auth', session_auth)
