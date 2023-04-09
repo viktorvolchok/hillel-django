@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'django_celery_beat',
     'books',
     'customers',
+    'students',
 ]
 
 MIDDLEWARE = [
@@ -61,6 +62,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CACHE_MIDDLEWARE_SECONDS = 5
 
 ROOT_URLCONF = 'hillel_django.urls'
 
@@ -88,6 +91,12 @@ REST_FRAMEWORK = {
         'hillel_django.authentication.SecretHeaderAuthentication',
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 100,
+    'DEFAULT_RENDERER_CLASSES': ['rest_framework.renderers.JSONRenderer'] if not DEBUG else [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
     ]
 }
 
@@ -108,7 +117,7 @@ elif USE_POSTGRES:
         'USER': os.environ["DB_USERNAME"],
         'PASSWORD': os.environ["DB_PASSWORD"],
         'HOST': os.environ["DB_HOST"],
-        'PORT': os.environ["PORT"],
+        'PORT': '5432',
     }
 else:
     DEFAULT_DATABASE = {
@@ -117,7 +126,8 @@ else:
     }
 
 DATABASES = {
-    'default': DEFAULT_DATABASE
+    'default': DEFAULT_DATABASE,
+    'students': dj_database_url.parse("postgres://vgzibcntmwkwjt:fa5731545dbdb678b43e21db8ba7e214225d3bc7eec20ebd87f1d2cfce50e636@ec2-34-250-252-161.eu-west-1.compute.amazonaws.com:5432/df6mqa9p7d1v6o")
 }
 
 # Password validation
