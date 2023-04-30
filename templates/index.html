@@ -1,0 +1,13 @@
+% load socialaccount %}
+<html>
+<body>
+<h1>Hillel Django GitHub Auth</h1>
+{% if user.is_authenticated %}
+  <p>Logged in as {{ user.username }}</p>
+  <a href="{% provider_login_url 'github' process='connect' %}">connect GitHub account</a>
+{% else %}
+  <a href="{% provider_login_url 'github' %}">Login with Github</a>
+{% endif %}
+
+</body>
+</html>
